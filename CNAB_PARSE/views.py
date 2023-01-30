@@ -3,6 +3,7 @@ from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from .models import Cnab
 from datetime import date, time
+import ipdb
 
 
 def slice_and_generate_list(str_cnab: str):
@@ -21,6 +22,8 @@ def slice_and_generate_list(str_cnab: str):
             'dono_da_loja': cnab[48:62].strip(),
             'nome_da_loja': cnab[62:80].strip()
         }
+        if dict_cnab['tipo'] == '2' or dict_cnab['tipo'] == '3' or dict_cnab['tipo'] == '9':
+            dict_cnab['valor'] = dict_cnab['valor'] * -1
         listCnab.append(dict_cnab)
         init_parse += 80
         end_parse += 80
